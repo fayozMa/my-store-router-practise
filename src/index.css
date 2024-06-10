@@ -10,6 +10,9 @@
   .site-container{
     @apply max-w-7xl mx-auto w-full
   }
+  .overlay{
+    
+  }
 }
 #root{
   @apply flex flex-col
