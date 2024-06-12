@@ -18,7 +18,7 @@ function App() {
   const routes = createBrowserRouter([
     {
       path:"/",
-      element: <ProtectedRoutes>
+      element: <ProtectedRoutes user={user}>
         <MainLayout/>
       </ProtectedRoutes>,
       children: [
