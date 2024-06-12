@@ -18,7 +18,7 @@ function App() {
   const routes = createBrowserRouter([
     {
       path:"/",
-      element: <ProtectedRoutes user={user}>
+      element: <ProtectedRoutes user={true}>
         <MainLayout/>
       </ProtectedRoutes>,
       children: [
@@ -42,11 +42,11 @@ function App() {
     },
     {
       path:"/login",
-      element: user ? <Navigate to="/"/> : <Login/>
+      element: true ? <Navigate to="/"/> : <Login/>
     },
     {
       path:"/register",
-      element: user ? <Navigate to="/"/> : <Register/>
+      element: true ? <Navigate to="/"/> : <Register/>
     }
   ])
   return <RouterProvider router={routes} />

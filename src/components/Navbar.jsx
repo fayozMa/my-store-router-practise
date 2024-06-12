@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { FaCartShopping } from "react-icons/fa6";
+import { NavLink, Link } from "react-router-dom";
 
 function themeFromLocalStorage() {
-  return localStorage.getItem('theme') || "winter"
+  return localStorage.getItem("theme") || "winter";
 }
+import {useGlobalContext} from '../hooks/useGlobalContext'
 function Navbar() {
-  const [theme, setTheme] = useState(themeFromLocalStorage)
-  const handleTheme  = () => {
-    const newTheme = theme == "winter" ? "dark":"winter"
-    setTheme(newTheme)
-  }
-  useEffect(()=>{
-    document.documentElement.setAttribute("data-theme",theme)
-    localStorage.setItem('theme', theme)
-  },[theme])
+  const {total} = useGlobalContext()
+  const [theme, setTheme] = useState(themeFromLocalStorage);
+  const handleTheme = () => {
+    const newTheme = theme == "winter" ? "dark" : "winter";
+    setTheme(newTheme);
+  };
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
     <div className="navbar bg-base-100 site-container mt-4">
       <div className="navbar-start">
@@ -40,32 +43,50 @@ function Navbar() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <NavLink className="font-semibold" to="/">Home</NavLink>
+              <NavLink className="font-semibold" to="/">
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink className="font-semibold" to="/about">About</NavLink>
+              <NavLink className="font-semibold" to="/about">
+                About
+              </NavLink>
             </li>
             <li>
-              <NavLink className="font-semibold" to="/contact">Contact</NavLink>
+              <NavLink className="font-semibold" to="/contact">
+                Contact
+              </NavLink>
             </li>
           </ul>
         </div>
-        <NavLink to='/' className="btn btn-ghost text-xl">MyStore</NavLink>
+        <NavLink to="/" className="btn btn-ghost text-xl">
+          MyStore
+        </NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-5">
           <li>
-            <NavLink className="font-semibold" to="/">Home</NavLink>
+            <NavLink className="font-semibold" to="/">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink className="font-semibold" to="/about">About</NavLink>
+            <NavLink className="font-semibold" to="/about">
+              About
+            </NavLink>
           </li>
           <li>
-            <NavLink className="font-semibold" to="/contact">Contact</NavLink>
+            <NavLink className="font-semibold" to="/contact">
+              Contact
+            </NavLink>
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex gap-10 items-center">
+      <div className="indicator">
+        <span className="indicator-item badge badge-xs badge-secondary">{total}</span>
+        <FaCartShopping className="w-7 h-7 cursor-pointer"/>
+      </div>
         <label className="swap swap-rotate">
           <input
             type="checkbox"
@@ -76,9 +97,9 @@ function Navbar() {
             readOnly
           />
           {/* moon icon */}
-          <IoIosMoon className="swap-off fill-current w-8 h-8"/>
+          <IoIosMoon className="swap-off fill-current w-8 h-8" />
           {/* sun icon */}
-          <IoIosSunny className="swap-on fill-current w-8 h-8"/>
+          <IoIosSunny className="swap-on fill-current w-8 h-8" />
         </label>
       </div>
     </div>
