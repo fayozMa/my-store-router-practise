@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 function themeFromLocalStorage() {
@@ -9,7 +9,7 @@ function themeFromLocalStorage() {
 }
 import { useGlobalContext } from "../hooks/useGlobalContext";
 function Navbar() {
-  const { total } = useGlobalContext();
+  const { total, user } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage);
   const logout = () => {
     signOut(auth)
@@ -113,8 +113,16 @@ function Navbar() {
           {/* sun icon */}
           <IoIosSunny className="swap-on fill-current w-8 h-8" />
         </label>
-        <div>
-          <button onClick={logout} className=" btn btn-primary">Log out</button>
+        <div className="flex items-center gap-4">
+          <p className="">{user.displayName}</p>
+          <div className="avatar">
+            <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={user.photoURL} />
+            </div>
+          </div>
+          <button onClick={logout} className=" btn btn-primary">
+            Log out
+          </button>
         </div>
       </div>
     </div>
