@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
-import { auth } from "../firebase/firebaseConfig";
+import { getAuth } from "firebase/auth";
 import { signOut } from "firebase/auth";
 function themeFromLocalStorage() {
   return localStorage.getItem("theme") || "winter";
@@ -12,6 +12,7 @@ function Navbar() {
   const { total, user } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage);
   const logout = () => {
+    const auth = getAuth();
     signOut(auth)
       .then(() => {
         // Sign-out successful.
