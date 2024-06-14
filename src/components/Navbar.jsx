@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import { IoIosMoon, IoIosSunny } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
-import { NavLink, Link } from "react-router-dom";
-
+import { NavLink} from "react-router-dom";
+import { auth } from "../firebase/firebaseConfig";
+import { signOut } from "firebase/auth";
 function themeFromLocalStorage() {
   return localStorage.getItem("theme") || "winter";
 }
-import {useGlobalContext} from '../hooks/useGlobalContext'
+import { useGlobalContext } from "../hooks/useGlobalContext";
 function Navbar() {
-  const {total} = useGlobalContext()
+  const { total } = useGlobalContext();
   const [theme, setTheme] = useState(themeFromLocalStorage);
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   const handleTheme = () => {
     const newTheme = theme == "winter" ? "dark" : "winter";
     setTheme(newTheme);
@@ -83,10 +93,12 @@ function Navbar() {
         </ul>
       </div>
       <div className="navbar-end flex gap-10 items-center">
-      <div className="indicator">
-        <span className="indicator-item badge badge-xs badge-secondary">{total}</span>
-        <FaCartShopping className="w-7 h-7 cursor-pointer"/>
-      </div>
+        <div className="indicator">
+          <span className="indicator-item badge badge-xs badge-secondary">
+            {total}
+          </span>
+          <FaCartShopping className="w-7 h-7 cursor-pointer" />
+        </div>
         <label className="swap swap-rotate">
           <input
             type="checkbox"
@@ -101,6 +113,9 @@ function Navbar() {
           {/* sun icon */}
           <IoIosSunny className="swap-on fill-current w-8 h-8" />
         </label>
+        <div>
+          <button onClick={logout} className=" btn btn-primary">Log out</button>
+        </div>
       </div>
     </div>
   );

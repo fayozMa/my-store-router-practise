@@ -9,6 +9,8 @@ export const  GlobalContext = createContext()
                 return {...state, user:payload}
             case "LOG_OUT":
                 return {...state,user:null}
+            case "AUTH_CHANGE":
+                return {...state,isAuthChange:true}
             default:
                 return state
         }
@@ -18,10 +20,11 @@ function GlobalContextProvider({children}) {
     const[state,dispatch] = useReducer(changeState, {
         user:null,
         product:[],
-        total:0
+        total:0,
+        isAuthChange:false
     })
     return (
-        <GlobalContext.Provider value={{...state}}>
+        <GlobalContext.Provider value={{...state,dispatch}}>
             {children}
         </GlobalContext.Provider>
     )

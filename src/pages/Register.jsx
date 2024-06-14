@@ -1,6 +1,10 @@
+import {useLogin} from '../hooks/useLogin'
 function Register() {
+  const {signUpWithGoogle} = useLogin()
   return (
-    <div>Register</div>
+    <div className='min-h-screen grid place-items-center'>
+      <button onClick={signUpWithGoogle} className='btn btn-primary'>Google</button>
+    </div>
   )
 }
 
