@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="footer p-10 bg-neutral text-neutral-content">
+    <footer className="footer p-10 bg-neutral text-neutral-content mt-20">
       <aside>
       <NavLink to='/' className="btn btn-ghost text-xl">MyStore</NavLink>
         <p>
