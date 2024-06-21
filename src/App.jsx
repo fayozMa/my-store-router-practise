@@ -15,6 +15,8 @@ import { useContext, useEffect } from 'react'
 import { GlobalContext } from './context/GlobalContext'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase/firebaseConfig'
+//action
+import { action as RegisterAction } from './pages/Register'
 function App() {
   const {user,dispatch, isAuthChange} = useContext(GlobalContext)
   const routes = createBrowserRouter([
@@ -48,7 +50,8 @@ function App() {
     },
     {
       path:"/register",
-      element: user ? <Navigate to="/"/> : <Register/>
+      element: user ? <Navigate to="/"/> : <Register/>,
+      action: RegisterAction
     }
   ])
 
@@ -56,8 +59,8 @@ function App() {
     onAuthStateChanged(auth, (user)=>{
       dispatch({type:"LOG_IN", payload: user})
       dispatch({type:"AUTH_CHANGE"})
-    },[])
-  })
+    })
+  },[])
   return <>{isAuthChange && <RouterProvider router={routes} />}</>
 }
 export default App
